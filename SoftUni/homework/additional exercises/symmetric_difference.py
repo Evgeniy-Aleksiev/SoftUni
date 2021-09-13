@@ -1,0 +1,5 @@
+size_a, a = int(input()), set(input().split())
+size_b, b = int(input()), set(input().split())
+p = a.difference(b)
+z = b.difference(a)
+print('\n'.join(sorted(p.union(z), key=int)))
