@@ -1,0 +1,1 @@
+VALID_EMAILS = ("com", "bg", "net", "org")
