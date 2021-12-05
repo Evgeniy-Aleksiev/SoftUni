@@ -70,8 +70,8 @@ class Table(ABC):
             return None
 
         return f'''Table: {self.table_number}
-                Type: {self.table_type}
-                Capacity: {self.capacity}'''
+Type: {self.table_type}
+Capacity: {self.capacity}'''
 
     @property
     @abstractmethod

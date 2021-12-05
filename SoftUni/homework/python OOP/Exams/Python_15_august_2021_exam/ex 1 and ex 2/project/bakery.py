@@ -143,9 +143,9 @@ class Bakery:
         ordered_str = '\n'.join(repr(d) for d in drinks)
         missing_str = '\n'.join(drinks_names_not_in_menu)
         return f'''Table {table_number} ordered:
-        {ordered_str}
-        {self.name} does not have in the menu:
-        {missing_str}'''
+{ordered_str}
+{self.name} does not have in the menu:
+{missing_str}'''
 
     def leave_table(self, table_number):
         table = self.__get_table_by_number(table_number)
@@ -153,10 +153,10 @@ class Bakery:
         self.total_income += table_bill
         table.clear()
         return f'''Table: {table_number}
-        Bill: {table_bill:.2f}'''
+Bill: {table_bill:.2f}'''
 
     def get_free_tables_info(self):
-        table_infos = [t.free_table_info for t in self.tables_repository if not t.is_reserved]
+        table_infos = [t.free_table_info() for t in self.tables_repository if not t.is_reserved]
         return '\n'.join(table_infos)
 
     def get_total_income(self):
