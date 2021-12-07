@@ -1,15 +1,14 @@
 from abc import ABC, abstractmethod
-from project.fish.freshwater_fish import FreshwaterFish
-from project.fish.saltwater_fish import SaltwaterFish
 
 
-class ValidFishType:
+class WaterSuitable:
     @staticmethod
-    def check(fish_type, name, species, price):
+    def check_if_fish_is_suitable(fish_type, aquarium_type):
         if fish_type == 'FreshwaterFish':
-            return FreshwaterFish(name, species, price)
+            return aquarium_type == 'FreshwaterAquarium'
         if fish_type == 'SaltwaterFish':
-            return SaltwaterFish(name, species, price)
+            return aquarium_type == 'SaltwaterAquarium'
+        return False
 
 
 class BaseAquarium(ABC):
@@ -44,11 +43,12 @@ class BaseAquarium(ABC):
         if self.capacity - 1 <= 0:
             return 'Not enough capacity.'
 
-        fish_type = ValidFishType().check(fish.__class__.__name__, fish.name, fish.species, fish.price)
-        if fish_type:
+        water_suitable = WaterSuitable().check_if_fish_is_suitable(fish.__class__.__name__, self.__class__.__name__)
+        if water_suitable:
             self.capacity -= 1
             self.fish.append(fish)
             return f'Successfully added {fish.__class__.__name__} to {self.name}.'
+        return 'Water not suitable.'
 
     def remove_fish(self, fish):
         self.capacity += 1

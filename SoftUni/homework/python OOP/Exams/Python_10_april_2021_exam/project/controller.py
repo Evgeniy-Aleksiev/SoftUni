@@ -1,9 +1,10 @@
-from project import Ornament
+from project import Ornament, SaltwaterFish
 from project.aquarium.freshwater_aquarium import FreshwaterAquarium
 from project.aquarium.saltwater_aquarium import SaltwaterAquarium
 from project.decoration.decoration_repository import DecorationRepository
 from project.aquarium.base_aquarium import BaseAquarium
 from project.decoration.plant import Plant
+from project.fish.freshwater_fish import FreshwaterFish
 
 
 class ValidAquariumType:
@@ -24,6 +25,25 @@ class ValidDecorationTypes:
         if decoration_type == 'Plant':
             return Plant()
         return None
+
+
+class ValidFishTypes:
+    @staticmethod
+    def create(fish_type, name, species, price):
+        if fish_type == 'FreshwaterFish':
+            return FreshwaterFish(name, species, price)
+        if fish_type == 'SaltwaterFish':
+            return SaltwaterFish(name, species, price)
+        return None
+
+
+class WaterSuitable:
+    @staticmethod
+    def check_if_fish_is_suitable(fish_type, aquarium_type):
+        if fish_type == 'FreshwaterFish':
+            return aquarium_type == 'FreshwaterAquarium'
+        if fish_type == 'SaltwaterFish':
+            return
 
 
 class Controller:
@@ -50,22 +70,42 @@ class Controller:
         return f'Successfully added {decoration_type}.'
 
     def insert_decoration(self, aquarium_name: str, decoration_type: str):
-        aquarium = [a for a in self.aquariums if a.name == aquarium_name][:1]
+        aquarium = [a for a in self.aquariums if a.name == aquarium_name]
         decoration = self.decorations_repository.find_by_type(decoration_type)
 
-        if aquarium and decoration is not 'None':
-            aquarium.add_decoration()
+        if aquarium and decoration != 'None':
+            aquarium[0].add_decoration(decoration)
+            self.decorations_repository.remove(decoration)
 
-
+            return f'Successfully added {decoration_type} to {aquarium_name}.'
+        return f'There isn\'t a decoration of type {decoration_type}.'
 
     def add_fish(self, aquarium_name: str, fish_type: str, fish_name: str, fish_species: str, price: float):
-        pass
+        fish = ValidFishTypes().create(fish_type, fish_name, fish_species, price)
+        aquarium = [a for a in self.aquariums if a.name == aquarium_name]
+
+        if not fish:
+            return f'There isn\'t a fish of type {fish_type}.'
+
+        return aquarium[0].add_fish(fish)
 
     def feed_fish(self, aquarium_name: str):
-        pass
+        for aquarium in self.aquariums:
+            if aquarium.name == aquarium_name:
+                aquarium.feed()
+                return f"Fish fed: {len(aquarium.fish)}"
 
     def calculate_value(self, aquarium_name: str):
-        pass
+        aquarium = [a for a in self.aquariums if a.name == aquarium_name][0]
+        decoration_value = sum([d.price for d in aquarium.decorations])
+        fish_value = sum([f.price for f in aquarium.fish])
+
+        return f'The value of Aquarium {aquarium_name} is {(decoration_value + fish_value):.2f}.'
 
     def report(self):
-        pass
+        result = ''
+        for aquarium in self.aquariums:
+            result += str(aquarium)
+            result += '\n'
+
+        return result

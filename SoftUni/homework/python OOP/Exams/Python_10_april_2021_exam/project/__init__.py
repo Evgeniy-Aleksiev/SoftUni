@@ -4,7 +4,7 @@ from project.fish.saltwater_fish import SaltwaterFish
 from project.decoration.decoration_repository import DecorationRepository
 from project.controller import Controller
 
-#a = BaseAquarium('xaxa', 1222)
+
 bd = Ornament()
 db = Ornament()
 sw = SaltwaterFish('Goshka', 'mammal', 15)
@@ -27,4 +27,9 @@ c.add_decoration('Ornament')
 c.add_decoration('Ornament')
 c.add_aquarium('FreshwaterAquarium', 'Goshka')
 c.add_aquarium('FreshwaterAquarium', 'Goshka')
-c.insert_decoration('Goshka', 'FreshwaterAquarium')
+c.insert_decoration('Goshka', 'Ornament')
+c.add_fish('Goshka', 'FreshwaterFish', 'Fish', 'species', 15)
+c.add_fish('Goshka', 'FreshwaterFish', 'Fish', 'species', 15)
+#print(c.feed_fish('Goshka'))
+#print(c.calculate_value('Goshka'))
+print(c.report())
