@@ -1,0 +1,15 @@
+h1{
+    text-align: center;
+    font-size: 80px;
+    color: rgb(22, 104, 93);
+}
+#header {
+    border: 30px solid rgb(175, 77, 77);
+    border-width: 30px 0;
+}
+.class {
+    text-align: center;
+  }   
+p {
+    padding-bottom: 15px;
+}
