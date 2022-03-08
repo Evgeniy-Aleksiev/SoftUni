@@ -1,0 +1,21 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+<body>
+<ul>
+    <li>
+        <a href="{% url 'index' %}">Go to HOME</a>
+    </li>    <li>
+        <a href="{% url 'create employee' %}">Create employee</a>
+    </li>
+</ul>
+{% block content %}
+{% endblock %}
+</body>
+</html>
