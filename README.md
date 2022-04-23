@@ -1,2 +1,2 @@
 # SoftUni
-My courses at SoftUni: homeworks, projects, exams, exercise
+My python courses at SoftUni: homeworks, projects, exams, exercise
